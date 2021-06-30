@@ -12,15 +12,15 @@ app.use(bodyParser.json())
 
 dotenv.config();
 
+// storage init
+let projectData = {};
 
 const getWeatherData = async (zip) => {
   const url = 'https://api.openweathermap.org/data/2.5/weather?zip=';
   const weatherKey = process.env.OPEN_WEATHER;
-  const result = await fetch(url+zip+",us&APPID="+weatherKey);
+  const result = await fetch(url+zip+",us&units=metric&APPID="+weatherKey);
   try {
-    console.log("the fetch result", result);
     const weatherData = await result.json();
-    console.log(weatherData);
     return weatherData;
   }
   catch(error) {
@@ -47,6 +47,9 @@ app.get('/weather/:zip', async function(req, res) {
   res.send(weatherData);
 });
 
+app.get('/all', async function(req, res) {
+  res.send(projectData);
+});
 
 // Create a server to listen at port 8080
 let server = app.listen(8080, function () {
