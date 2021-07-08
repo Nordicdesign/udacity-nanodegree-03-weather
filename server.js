@@ -21,6 +21,13 @@ const saveProjectData = (data) => projectData.push(data);
 const getWeatherData = async (zip) => {
   const url = 'https://api.openweathermap.org/data/2.5/weather?zip=';
   const weatherKey = process.env.OPEN_WEATHER;
+  if (weatherKey === 'undefined') {
+    console.warn("No weather API key present");
+    return {
+      code: 401,
+      msg: "API missing or incorrect"
+    }
+  }
   const result = await fetch(url+zip+",us&units=metric&APPID="+weatherKey);
   try {
     const weatherData = await result.json();

@@ -9,7 +9,11 @@ const populatePostcode = () => {
 
 const updateUIWithWeather = (data) => {
   const target = document.querySelector('.help-tip');
-  if (data && data.cod !== "404") {
+  console.log(data);
+  if (data === 'undefined') {
+    console.log("No API");
+  }
+  else if (data && data.cod !== "404") {
     target.innerText = `${data.name}, ${data.weather[0].description} ${data.main.temp}C `;
   }
   else {
@@ -114,8 +118,14 @@ const checkWeather = async () => {
     const response = await fetch(url+zip);
     try {
       const data = await response.json();
-      sessionStorage.setItem('weather', JSON.stringify(data))
-      updateUIWithWeather(data);
+      if (data.cod !== 401) {
+        sessionStorage.setItem('weather', JSON.stringify(data))
+        updateUIWithWeather(data);
+      }
+      else {
+        console.warn("No API present")
+      }
+
     }
     catch (error) {
       console.error(error);
