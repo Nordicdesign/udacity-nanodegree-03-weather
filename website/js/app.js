@@ -61,27 +61,32 @@ const displayRecentFeeling = async () => {
   }
 }
 
-
-const storeFeelings = async () => {
+const buildPostEntry = async () => {
   // check weather
   let currentWeather = sessionStorage.getItem('weather');
   if (!currentWeather) {
       await checkWeather();
       currentWeather = sessionStorage.getItem('weather');
   }
-  const data = JSON.parse(currentWeather)
-
-  // build the entry
+  const weather = JSON.parse(currentWeather);
   const feelings = document.getElementById('feelings').value;
-  const date = new Date()
-  const journalEntry = {
-    'date': date.toLocaleString('en-gb',{
-    	dateStyle: 'long',
-    	timeStyle: 'short'
-    }),
-    'temp': data.main.temp,
+  const date = new Date();
+  const rightNow = date.toLocaleString('en-gb',{
+                      dateStyle: 'long',
+                      timeStyle: 'short'
+                    });
+
+  return {
+    'date': rightNow,
+    'temp': weather.main.temp,
     'content': feelings
   }
+}
+
+
+const storeFeelings = async () => {
+  // build the entry
+  const journalEntry = await buildPostEntry();
   // sent post to API
   const url = 'http://localhost:8080/journal';
   let response = await fetch(url, {
