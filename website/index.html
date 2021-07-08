@@ -13,20 +13,24 @@
         <form id="weatherForm" class="">
           <fieldset>
             <label for="zip">Your location</label>
-            <input type="text" name="zip" placeholder="enter zip code here" id="zip" value="">
+            <input type="text" name="zip" placeholder="enter zip code here" id="zip" value="" autofocus>
             <p class="help-tip">US only I'm afraid ¯\_(ツ)_/¯</p>
 
             <label for="feelings">How are you feeling today?</label>
             <textarea name="name" rows="4" cols="80" id="feelings"></textarea>
 
             <p><input type="submit" name="" value="Save entry" id="generate"></p>
-
           </fieldset>
-
         </form>
       </section>
       <section class="entries" id="entries">
-
+        <h2>Most recent entry</h2>
+        <div class ="holder entry">
+        <div id="entryHolder">
+          <div id="date"></div>
+          <div id="temp"></div>
+          <div id="content"></div>
+        </div>
       </section>
     </div>
 

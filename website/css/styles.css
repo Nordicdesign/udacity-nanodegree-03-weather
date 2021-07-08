@@ -18,6 +18,7 @@ html, body {
 label {
   display: block;
   margin-top: 1.5em;
+  margin-bottom: 0.3em;
 }
 
 .help-tip {
@@ -51,4 +52,10 @@ textarea {
 
 input[type="submit"] {
   cursor: pointer;
+}
+
+#entries {
+  margin-top: 30px;
+  border-top: 1px solid #ccc;
+  padding: 30px 0; 
 }
